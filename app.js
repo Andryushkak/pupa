@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const indexRoutes = require('./routes/index');
 const nodemailer = require('nodemailer');
-//const nodemailer = require('nodemailer');
+
 dotenv.config();
 
 const app = express();
