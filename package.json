@@ -1,0 +1,33 @@
+{
+  "name": "morok",
+  "version": "1.0.0",
+  "description": "опис:",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.0",
+    "mssql": "^10.0.2",
+    "nodemailer": "^6.9.13",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "sequelize": "^6.37.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andryushkak/morok.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Andryushkak/morok/issues"
+  },
+  "homepage": "https://github.com/Andryushkak/morok#readme"
+}
