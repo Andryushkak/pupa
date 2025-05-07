@@ -293,46 +293,55 @@ button:hover {
 }
 
 .letter-animation {
-    animation: flicker 1s infinite alternate;
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0px) scale(0.8);
+    animation: waveIn 1s ease-in-out forwards;
 }
 
-@keyframes flicker {
+.letter-animation[data-index="1"] {
+    animation-delay: 0.1s;
+}
+.letter-animation[data-index="2"] {
+    animation-delay: 0.2s;
+}
+.letter-animation[data-index="3"] {
+    animation-delay: 0.3s;
+}
+.letter-animation[data-index="4"] {
+    animation-delay: 0.4s;
+}
+.letter-animation[data-index="5"] {
+    animation-delay: 0.5s;
+}
+
+/* Хвильова анімація */
+@keyframes waveIn {
     0% {
-        opacity: 1;
+        opacity: 0;
+        transform: translateY(20px) scale(0.8) rotateX(90deg);
+        filter: blur(4px);
     }
     50% {
-        opacity: 0.5;
+        opacity: 1;
+        transform: translateY(-10px) scale(1.1) rotateX(10deg);
+        filter: blur(0);
     }
     100% {
+        transform: translateY(0) scale(1) rotateX(0deg);
         opacity: 1;
     }
 }
 
-.fade-out {
-    animation: fadeOut 1s forwards;
+.letter-animation {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
+                 0 0 20px rgba(173, 216, 230, 0.4),
+                 0 0 30px rgba(0, 191, 255, 0.3);
+    color: white;
+    font-family: 'Lobster', cursive;
+    font-size: 2rem;
 }
 
-.fade-in {
-    animation: fadeIn 1s forwards;
-}
-
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
 .modal {
     display: none;
     position: fixed;
