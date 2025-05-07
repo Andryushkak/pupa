@@ -12,7 +12,7 @@ dotenv.config();
 
 const app = express();
 
-require('./passport-config')(passport);
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
