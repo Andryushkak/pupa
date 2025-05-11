@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Мій профіль</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,20 +11,52 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="/">Home</a>
-        <a href="/logout">Logout</a>
+        <a href="/">Головна</a>
+        <a href="/books/add">Додати книгу</a>
+        <a href="/logout">Вийти</a>
     </div>
+
     <div class="container">
         <div class="profile-container">
             <div class="profile-photo">
-                <img src="path/to/default/photo.jpg" alt="Profile Photo">
+                <img src="<%= user.photo || '/image/default-profile.png' %>" alt="Фото профілю">
             </div>
+
             <div class="profile-info">
-                <h2><%= user.first_name %> <%= user.last_name %></h2>
+                <h2><%= user.firstName %> <%= user.lastName %></h2>
                 <p>Email: <%= user.email %></p>
-                <a href="/profile/edit" class="edit-button">Edit Profile</a>
+                <p>Загалом книг додано: <%= user.books ? user.books.length : 0 %></p>
+                <p>Рецензій написано: <%= user.reviews ? user.reviews.length : 0 %></p>
+                <a href="/profile/edit" class="edit-button">Редагувати профіль</a>
             </div>
         </div>
+
+        <% if (user.books && user.books.length > 0) { %>
+        <div class="container">
+            <h2>Мої книги</h2>
+            <ul>
+                <% user.books.forEach(book => { %>
+                    <li>
+                        <strong><%= book.title %></strong> — <em><%= book.author %></em><br>
+                        <small>Додано: <%= new Date(book.createdAt).toLocaleDateString() %></small>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+        <% } %>
+
+        <% if (user.reviews && user.reviews.length > 0) { %>
+        <div class="container">
+            <h2>Мої рецензії</h2>
+            <% user.reviews.forEach(review => { %>
+                <div class="review">
+                    <h3>📖 <%= review.bookTitle %></h3>
+                    <p><%= review.text %></p>
+                    <small>Оцінка: <%= review.rating %>/5 | <%= new Date(review.date).toLocaleDateString() %></small>
+                </div>
+            <% }) %>
+        </div>
+        <% } %>
     </div>
 </body>
 </html>

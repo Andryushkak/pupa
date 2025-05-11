@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
@@ -7,6 +8,9 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const indexRoutes = require('./routes/index');
 const nodemailer = require('nodemailer');
+const initializePassport = require('./config/passport-config');
+
+initializePassport(passport);
 
 dotenv.config();
 
@@ -58,15 +62,22 @@ app.post("/register", async (req, res) => {
     try {
         const result = await database.registerUser(firstName, lastName, email, password);
         if (result) {
-            await sendWelcomeEmail(email, firstName);
-            res.redirect('/login');
+            try {
+                await sendWelcomeEmail(email, firstName);
+            } catch (emailErr) {
+                console.warn("Лист не відправлено:", emailErr.message);
+                // Тут можеш логувати у файл або базу, якщо треба
+            }
+            return res.redirect('/login');
         } else {
-            res.status(400).send('User already exists');
+            return res.status(400).send('Користувач вже існує');
         }
     } catch (err) {
-        res.status(500).send('Error registering user');
+        console.error("Помилка при реєстрації:", err.message);
+        return res.status(500).send('Помилка реєстрації користувача');
     }
 });
+
 
 app.get('/login', (req, res) => {
     res.render('login');
@@ -94,6 +105,26 @@ app.get('/logout', (req, res) => {
         res.redirect('/');
     });
 });
+
+async function sendWelcomeEmail(toEmail, firstName) {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+
+    const mailOptions = {
+        from: `"Pupa App" <${process.env.EMAIL_USER}>`,
+        to: toEmail,
+        subject: 'Ласкаво просимо!',
+        html: `<h2>Привіт, ${firstName}!</h2>
+               <p>Дякуємо за реєстрацію в нашому застосунку. Успіхів!</p>`
+    };
+
+    await transporter.sendMail(mailOptions);
+}
 
 const port = process.env.PORT || 3000;
 
