@@ -48,15 +48,30 @@ a:hover {
 }
 
 .container {
-    background: #1e1e1e;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    width: 100%;
-    max-width: 400px;
-    margin: 20px;
-    transition: transform 0.3s ease-in-out;
+  background: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  padding: 40px;
+  width: 90%;
+  max-width: 1400px;
+  min-height: 80vh;
+  margin: 120px auto 60px auto; /* зверху 120px, знизу 60px */
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+
+.book-grid {
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
 
 .container:hover {
     transform: translateY(-5px);
@@ -136,8 +151,8 @@ button:hover {
 /* Profile styles */
 .profile-container {
     background-color: #2c2c2c;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 50px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -146,7 +161,7 @@ button:hover {
     max-width: 1200px;
     margin: 10px;
     height: calc(60vh - 20px);
-    overflow-y: auto;
+    /* overflow-y: auto; */
 }
 
 .profile-photo {

@@ -7,7 +7,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const storage = new CloudinaryStorage({
+// Зберігання для фото профілю
+const profileStorage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: 'user_photos',
@@ -16,4 +17,18 @@ const storage = new CloudinaryStorage({
   }
 });
 
-module.exports = { cloudinary, storage };
+// Зберігання для обкладинок книг
+const bookStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'book_covers',
+    allowed_formats: ['jpg', 'jpeg', 'png'],
+    transformation: [{ width: 400, height: 600, crop: 'limit' }]
+  }
+});
+
+module.exports = {
+  cloudinary,
+  profileStorage,
+  bookStorage
+};

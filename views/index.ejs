@@ -34,19 +34,24 @@
 
     <!-- Картки книг -->
     <div class="book-grid">
-      <% if (books && books.length > 0) { %>
-        <% books.forEach(book => { %>
-          <div class="book-card">
-            <h3><%= book.title %></h3>
-            <p><em><%= book.author %></em></p>
-            <p><%= book.description.slice(0, 100) %>...</p>
-            <a href="/books/<%= book._id %>" class="edit-button">Детальніше</a>
-          </div>
-        <% }) %>
-      <% } else { %>
-        <p>Немає книг для відображення.</p>
-      <% } %>
-    </div>
+  <% if (books && books.length > 0) { %>
+    <% books.forEach(book => { %>
+      <div class="book-card">
+        <a href="/books/<%= book._id %>">
+          <% if (book.coverImage) { %>
+            <img src="<%= book.coverImage %>" alt="Обкладинка" class="book-cover">
+          <% } else { %>
+            <div class="book-placeholder">Без фото</div>
+          <% } %>
+          <h3><%= book.title %></h3>
+        </a>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <p>Немає книг для відображення.</p>
+  <% } %>
+</div>
+
   </div>
 </body>
 </html>

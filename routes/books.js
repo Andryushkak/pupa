@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const database = require('../bace/DataBace');
+const multer = require('multer');
+const { storage } = require('../config/cloudinary'); // обов’язково створити config/cloudinary.js
+const upload = multer({ storage });
+
+const Book = require('../models/Book');
 
 // GET форма
 router.get('/books/add', (req, res) => {
@@ -8,17 +12,25 @@ router.get('/books/add', (req, res) => {
   res.render('add-book');
 });
 
-// POST обробка
-router.post('/books/add', async (req, res) => {
+// POST додавання книги
+router.post('/books/add', upload.single('cover'), async (req, res) => {
   if (!req.isAuthenticated()) return res.redirect('/login');
 
-  const { title, author } = req.body;
+  const { title, author, description, year, genre } = req.body;
 
   try {
-    const user = await database.findUserById(req.user._id);
-    user.books.push({ title, author });
-    await user.save();
-    res.redirect('/profile');
+    const book = new Book({
+      title,
+      author,
+      description,
+      year,
+      genre,
+      coverImage: req.file ? req.file.path : null,
+      addedBy: req.user._id
+    });
+
+    await book.save();
+    res.redirect('/');
   } catch (err) {
     console.error('Помилка додавання книги:', err.message);
     res.status(500).send('Помилка сервера');
