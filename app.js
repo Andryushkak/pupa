@@ -10,8 +10,8 @@ const indexRoutes = require('./routes/index');
 const nodemailer = require('nodemailer');
 const initializePassport = require('./config/passport-config');
 const profileRoutes = require('./routes/profile'); // новий файл
-
-
+const booksRoutes = require('./routes/books');
+const flash = require('connect-flash');
 
 initializePassport(passport);
 
@@ -19,6 +19,7 @@ dotenv.config();
 
 const app = express();
 
+app.use(flash());
 
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -43,7 +44,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
+app.use('/', profileRoutes);
+app.use('/', booksRoutes);
 
 app.use('/', indexRoutes);
 
@@ -83,8 +85,9 @@ app.post("/register", async (req, res) => {
 
 
 app.get('/login', (req, res) => {
-    res.render('login');
+    res.render('login', { message: req.flash('error') });
 });
+
 
 app.post('/login', passport.authenticate('local', {
     successRedirect: '/profile',
@@ -109,7 +112,7 @@ app.get('/logout', (req, res) => {
     });
 });
 
-app.use('/', profileRoutes);
+
 
 async function sendWelcomeEmail(toEmail, firstName) {
     const transporter = nodemailer.createTransport({

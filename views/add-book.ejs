@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Додати книгу</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="navbar">
+    <a href="/">Головна</a>
+    <a href="/profile">Мій профіль</a>
+    <a href="/logout">Вийти</a>
+  </div>
+
+  <div class="container">
+    <h2>📚 Додати нову книгу</h2>
+    <form action="/books/add" method="post">
+      <div class="form-group">
+        <label>Назва книги:</label>
+        <input type="text" name="title" required />
+      </div>
+      <div class="form-group">
+        <label>Автор:</label>
+        <input type="text" name="author" required />
+      </div>
+      <button type="submit">Додати</button>
+    </form>
+  </div>
+</body>
+</html>

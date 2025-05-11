@@ -26,11 +26,17 @@
             </div>
             <button type="submit">Login</button>
         </form>
+        <% if (message && message.length > 0) { %>
+  <div style="background: #5a1a1a; color: #fff; padding: 10px; border-radius: 5px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.4); text-align: center;">
+    <%= message[0] %>
+  </div>
+<% } %>
     </div>
     <div class="social-icons">
         <a href="/auth/google" class="social-icon">
             <img src="/image/google-icon.png" alt="Google Icon">
         </a>
+    
     </div>
 
 </body>

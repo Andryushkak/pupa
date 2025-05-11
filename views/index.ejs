@@ -1,31 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Lobster&display=swap" rel="stylesheet">
+  <title>Home</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Lobster&display=swap" rel="stylesheet">
 </head>
 <body class="fade-in">
-    <div class="navbar">
-        <a href="/">Home</a>
-        <% if (user) { %>
-            <a href="/profile">Profile</a>
-            <a href="/logout">Logout</a>
-        <% } else { %>
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-        <% } %>
+  <div class="navbar">
+    <a href="/">Home</a>
+    <% if (user) { %>
+      <a href="/profile">Profile</a>
+      <a href="/books/add">Додати книгу</a>
+      <a href="/logout">Logout</a>
+    <% } else { %>
+      <a href="/login">Login</a>
+      <a href="/register">Register</a>
+    <% } %>
+  </div>
+
+  <div class="container">
+    <h1>📚 Книжкова галерея</h1>
+
+    <!-- Пошук -->
+    <form method="GET" action="/" style="margin-bottom: 20px;">
+      <div class="form-group">
+        <label for="search">Пошук книги або автора:</label>
+        <input type="text" id="search" name="q" value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>" placeholder="Введіть назву або автора...">
+      </div>
+    </form>
+
+    <!-- Картки книг -->
+    <div class="book-grid">
+      <% if (books && books.length > 0) { %>
+        <% books.forEach(book => { %>
+          <div class="book-card">
+            <h3><%= book.title %></h3>
+            <p><em><%= book.author %></em></p>
+            <p><%= book.description.slice(0, 100) %>...</p>
+            <a href="/books/<%= book._id %>" class="edit-button">Детальніше</a>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <p>Немає книг для відображення.</p>
+      <% } %>
     </div>
-    <div class="container">
-        <h1>Home</h1>
-        <% if (user) { %>
-            <p>Welcome, <%= user.username %>!</p>
-        <% } else { %>
-            <p>Please login or register.</p>
-        <% } %>
-    </div>
+  </div>
 </body>
 </html>
