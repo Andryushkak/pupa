@@ -9,6 +9,9 @@ const dotenv = require('dotenv');
 const indexRoutes = require('./routes/index');
 const nodemailer = require('nodemailer');
 const initializePassport = require('./config/passport-config');
+const profileRoutes = require('./routes/profile'); // новий файл
+
+
 
 initializePassport(passport);
 
@@ -105,6 +108,8 @@ app.get('/logout', (req, res) => {
         res.redirect('/');
     });
 });
+
+app.use('/', profileRoutes);
 
 async function sendWelcomeEmail(toEmail, firstName) {
     const transporter = nodemailer.createTransport({
