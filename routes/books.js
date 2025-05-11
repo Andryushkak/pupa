@@ -37,4 +37,16 @@ router.post('/books/add', upload.single('cover'), async (req, res) => {
   }
 });
 
+router.get('/my-books', async (req, res) => {
+  if (!req.isAuthenticated()) return res.redirect('/login');
+
+  try {
+    const books = await Book.find({ addedBy: req.user._id }).sort({ createdAt: -1 });
+    res.render('my-books', { books });
+  } catch (err) {
+    console.error('Помилка завантаження книг:', err.message);
+    res.status(500).send('Помилка сервера');
+  }
+});
+
 module.exports = router;
