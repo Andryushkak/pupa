@@ -42,7 +42,7 @@ h2 {
 }
 
 a {
-    color: #1e88e5;
+    color: #5a5a68;
     text-decoration: none;
 }
 
@@ -128,7 +128,7 @@ input[type="email"]:focus {
 }
 
 button {
-    background-color: #1e88e5;
+    background-color: #474755;
     color: #fff;
     padding: 10px;
     border: none;
