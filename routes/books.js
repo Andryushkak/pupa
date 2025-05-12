@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { storage } = require('../config/cloudinary'); // обов’язково створити config/cloudinary.js
-const upload = multer({ storage });
+const { bookStorage } = require('../config/cloudinary');
+const upload = multer({ storage: bookStorage });
+;
 
 const Book = require('../models/Book');
+
 
 // GET форма
 router.get('/books/add', (req, res) => {
@@ -37,16 +39,27 @@ router.post('/books/add', upload.single('cover'), async (req, res) => {
   }
 });
 
-router.get('/my-books', async (req, res) => {
-  if (!req.isAuthenticated()) return res.redirect('/login');
-
+router.get('/', async (req, res) => {
   try {
-    const books = await Book.find({ addedBy: req.user._id }).sort({ createdAt: -1 });
-    res.render('my-books', { books });
+    const searchQuery = req.query.q;
+    let books;
+
+    if (searchQuery) {
+      const regex = new RegExp(searchQuery, 'i');
+      books = await Book.find({
+        $or: [{ title: regex }, { author: regex }]
+      });
+    } else {
+      books = await Book.find({});
+    }
+
+    res.render('index', { user: req.user, books, searchQuery });
   } catch (err) {
-    console.error('Помилка завантаження книг:', err.message);
-    res.status(500).send('Помилка сервера');
+    console.error('Помилка отримання книг:', err.message);
+    res.status(500).send('Серверна помилка');
   }
 });
+
+
 
 module.exports = router;

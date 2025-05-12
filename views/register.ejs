@@ -13,32 +13,36 @@
         <a href="/">Home</a>
         <a href="/login">Login</a>
     </div>
-    <div class="container-reg">
-        <h1>Register</h1>
-        <form action="/register" method="post">
-            <div>
-                <label>first_name:</label>
-                <input type="text" name="firstName" required>
-            </div>
-            <div>
-                <label>last_name:</label>
-                <input type="text" name="lastName" required>
-            </div>
-            <div>
-                <label>email:</label>
-                <input type="email" name="email" required>
-            </div>
-            <div>
-                <label>password:</label>
-                <input type="password" name="password" required>
-            </div>
-            <button type="submit">Register</button>
-        </form>
+
+    <div class="center-wrapper">
+        <div class="container-reg">
+            <h1>Register</h1>
+            <form action="/register" method="post">
+                <div>
+                    <label>first_name:</label>
+                    <input type="text" name="firstName" required>
+                </div>
+                <div>
+                    <label>last_name:</label>
+                    <input type="text" name="lastName" required>
+                </div>
+                <div>
+                    <label>email:</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div>
+                    <label>password:</label>
+                    <input type="password" name="password" required>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+        </div>
     </div>
+
     <div class="social-icons">
         <a href="/auth/google" class="social-icon">
             <img src="/image/google-icon.png" alt="Google Icon">
         </a>
-</div>
+    </div>
 </body>
 </html>

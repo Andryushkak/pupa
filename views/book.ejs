@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= book.title %> — Деталі книги</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="navbar">
+    <a href="/">Головна</a>
+    <a href="/books">Всі книги</a>
+  </div>
+
+  <div class="container fade-in" style="margin-top: 100px;">
+    <h1><%= book.title %></h1>
+    <div class="profile-container" style="flex-direction: row; align-items: flex-start;">
+      <div class="profile-photo">
+        <% if (book.coverUrl) { %>
+          <img src="<%= book.coverUrl %>" alt="<%= book.title %>">
+        <% } else { %>
+          <div class="book-placeholder">Без обкладинки</div>
+        <% } %>
+      </div>
+      <div class="profile-info" style="margin-left: 40px;">
+        <h2>Автор: <%= book.author %></h2>
+        <p><strong>Опис:</strong></p>
+        <p><%= book.description || "Опис відсутній." %></p>
+        <% if (book.genre) { %>
+          <p><strong>Жанр:</strong> <%= book.genre %></p>
+        <% } %>
+        <% if (book.year) { %>
+          <p><strong>Рік видання:</strong> <%= book.year %></p>
+        <% } %>
+      </div>
+    </div>
+
+    <a href="/books" style="margin-top: 30px; display: inline-block;">
+      <button>← Назад до списку</button>
+    </a>
+  </div>
+</body>
+</html>
