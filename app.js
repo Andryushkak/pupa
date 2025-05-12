@@ -51,9 +51,9 @@ app.use(passport.session());
 
 app.use('/', indexRoutes);
 
-// app.get('/', (req, res) => {
-//     res.render('morok');
-// });
+app.get('/', (req, res) => {
+    res.render('morok');
+});
 
 
 app.get('/home', (req, res) => {
