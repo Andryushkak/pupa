@@ -47,6 +47,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
+  next();
+});
+
 // Маршрути
 app.use('/', indexRoutes);
 app.use('/', booksRoutes);

@@ -499,3 +499,49 @@ button:hover {
     0% { opacity: 0; transform: translateY(-20px); }
     100% { opacity: 1; transform: translateY(0); }
 }
+
+.flash-error {
+    background-color: #ffdddd;
+    color: #a94442;
+    padding: 10px;
+    border: 1px solid #ebccd1;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    animation: slideDownFade 0.5s ease-out;
+    overflow: hidden;
+}
+
+/* Коли зникає */
+.flash-error.hide {
+    animation: slideUpFade 0.5s ease-in forwards;
+}
+
+/* Анімація появи */
+@keyframes slideDownFade {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+        max-height: 0;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 200px;
+    }
+}
+
+/* Анімація зникнення */
+@keyframes slideUpFade {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 200px;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+        max-height: 0;
+    }
+}
