@@ -48,8 +48,8 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  res.locals.error = req.flash('error');
-  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error'); // для помилок
+  res.locals.success = req.flash('success'); // для успішних дій (за бажанням)
   next();
 });
 
