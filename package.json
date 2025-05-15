@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -35,5 +36,9 @@
   "bugs": {
     "url": "https://github.com/Andryushkak/morok/issues"
   },
-  "homepage": "https://github.com/Andryushkak/morok#readme"
+  "homepage": "https://github.com/Andryushkak/morok#readme",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.1.1"
+  }
 }

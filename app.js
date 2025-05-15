@@ -4,7 +4,6 @@ const session = require('express-session');
 const passport = require('passport');
 const path = require('path');
 const database = require('./bace/DataBace');
-const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const nodemailer = require('nodemailer');
 
@@ -25,8 +24,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Парсери
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // додано для парсингу JSON
 
 // Сесії та Passport
 app.use(session({
@@ -48,8 +47,8 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  res.locals.error = req.flash('error'); // для помилок
-  res.locals.success = req.flash('success'); // для успішних дій (за бажанням)
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
   next();
 });
 
@@ -70,6 +69,21 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
+
+  if (!firstName || !lastName || !email || !password) {
+    return res.status(400).send("Всі поля обов'язкові");
+  }
+
+  // Простенька валідація email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).send('Некоректний email');
+  }
+
+  if (password.length < 6) {
+    return res.status(400).send('Пароль занадто короткий');
+  }
+
   try {
     const result = await database.registerUser(firstName, lastName, email, password);
     if (result) {
@@ -136,7 +150,6 @@ async function sendWelcomeEmail(toEmail, firstName) {
 
   await transporter.sendMail(mailOptions);
 }
-
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
