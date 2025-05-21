@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <div class="navbar">
+  <div class="navbar main-nav">
     <a href="/">All books</a>
   </div>
 
@@ -53,9 +53,9 @@
       <% } %>
 
       <% if (currentUser) { %>
-        <form action="/books/<%= book._id %>/reviews" method="POST" class="review-form">
+        <form action="/books/<%= book._id %>/reviews" method="POST" class="form-container review-form">
         <textarea name="content" placeholder="Залиште свій відгук..." required></textarea>
-        <button type="submit">Надіслати</button>
+        <button type="submit" class="btn-primary">Надіслати</button>
         </form>
       <% } else { %>
         <p>Щоб залишити відгук, <a href="/login">увійдіть</a> у свій акаунт.</p>

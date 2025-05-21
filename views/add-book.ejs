@@ -4,13 +4,12 @@
   <meta charset="UTF-8" />
   <title>Додати книгу</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css" />
-  
 </head>
 <body>
-  <div class="navbar">
+  <div class="navbar main-nav">
     <a href="/">Home</a>
     <a href="/profile">My profile</a>
     <a href="/logout">Logout</a>
@@ -18,7 +17,7 @@
 
   <div class="container">
     <h2>📚 Додати нову книгу</h2>
-    <form action="/books/add" method="post" enctype="multipart/form-data">
+    <form action="/books/add" method="post" enctype="multipart/form-data" class="form-container">
       <div class="form-group">
         <label>Назва книги:</label>
         <input type="text" name="title" required />
@@ -49,7 +48,7 @@
         <input type="file" name="cover" accept="image/*" />
       </div>
 
-      <button type="submit">Додати</button>
+      <button type="submit" class="btn-primary">Додати</button>
     </form>
   </div>
 </body>

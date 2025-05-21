@@ -23,6 +23,9 @@ app.set('view engine', 'ejs');
 // Статичні файли
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(express.static('public'));
+
+
 // Парсери
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // додано для парсингу JSON
