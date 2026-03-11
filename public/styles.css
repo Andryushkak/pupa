@@ -542,6 +542,53 @@ ul li small,
   padding: 10px;
 }
 
+/* ===== ЖАНРИ-ТЕГИ ===== */
+.genre-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 520px;
+}
+
+.genre-tag {
+  display: inline-block;
+}
+
+.genre-tag input {
+  display: none;
+}
+
+.genre-tag span {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  user-select: none;
+}
+
+.genre-tag span:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(0, 247, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.genre-tag span:active {
+  transform: scale(0.96);
+}
+
+.genre-tag input:checked + span {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+  box-shadow: 0 0 15px rgba(0, 247, 255, 0.45);
+}
+
 /* ===== FLASH ===== */
 .flash-error {
   background: #ff4444;
@@ -618,6 +665,10 @@ ul li small,
     width: 100%;
     max-width: 320px;
   }
+
+  .genre-tags {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 768px) {
@@ -659,5 +710,14 @@ ul li small,
 
   .book-card {
     width: 100%;
+  }
+
+  .genre-tags {
+    gap: 10px;
+  }
+
+  .genre-tag span {
+    font-size: 0.9rem;
+    padding: 9px 14px;
   }
 }

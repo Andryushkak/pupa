@@ -43,22 +43,32 @@
       <form method="GET" action="/" class="search-form">
         <div class="filter-group">
           <label for="genre" class="filter-label">Жанри:</label>
-          <select
-            id="genre"
-            name="genre"
-            multiple
-            size="5"
-            onchange="this.form.submit()"
-            class="filter-select"
-          >
-            <option value="" <%= selectedGenres.length === 0 ? 'selected' : '' %>>Усі жанри</option>
-            <% genres.forEach(g => { %>
-              <option
-                value="<%= g %>"
-                <%= selectedGenres.includes(g) ? 'selected' : '' %>
-              ><%= g %></option>
-            <% }) %>
-          </select>
+          <div class="filter-group">
+  <label class="filter-label">Жанри:</label>
+
+  <div class="genre-tags">
+
+    <label class="genre-tag">
+      <input type="checkbox" name="genre" value="all"
+      <%= selectedGenres.length === 0 ? 'checked' : '' %>>
+      <span>Усі</span>
+    </label>
+
+    <% genres.forEach(g => { %>
+      <label class="genre-tag">
+        <input
+          type="checkbox"
+          name="genre"
+          value="<%= g %>"
+          <%= selectedGenres.includes(g) ? 'checked' : '' %>
+          onchange="this.form.submit()"
+        >
+        <span><%= g %></span>
+      </label>
+    <% }) %>
+
+  </div>
+</div>
         </div>
 
         <div class="filter-group">
