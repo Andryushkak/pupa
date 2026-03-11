@@ -41,34 +41,38 @@
 
     <div class="search-container" id="search-container">
       <form method="GET" action="/" class="search-form">
-        <div class="filter-group">
-          <label for="genre" class="filter-label">Жанри:</label>
-          <div class="filter-group">
-  <label class="filter-label">Жанри:</label>
-
-  <div class="genre-tags">
-
-    <label class="genre-tag">
-      <input type="checkbox" name="genre" value="all"
-      <%= selectedGenres.length === 0 ? 'checked' : '' %>>
-      <span>Усі</span>
-    </label>
-
-    <% genres.forEach(g => { %>
-      <label class="genre-tag">
         <input
-          type="checkbox"
-          name="genre"
-          value="<%= g %>"
-          <%= selectedGenres.includes(g) ? 'checked' : '' %>
-          onchange="this.form.submit()"
+          type="hidden"
+          name="q"
+          value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>"
         >
-        <span><%= g %></span>
-      </label>
-    <% }) %>
 
-  </div>
-</div>
+        <div class="filter-group">
+          <label class="filter-label">Жанри:</label>
+
+          <div class="genre-tags">
+            <label class="genre-tag">
+              <input
+                type="checkbox"
+                id="all-genres"
+                <%= selectedGenres.length === 0 ? 'checked' : '' %>
+              >
+              <span>Усі</span>
+            </label>
+
+            <% genres.forEach(g => { %>
+              <label class="genre-tag">
+                <input
+                  type="checkbox"
+                  name="genre"
+                  value="<%= g %>"
+                  <%= selectedGenres.includes(g) ? 'checked' : '' %>
+                  onchange="this.form.submit()"
+                >
+                <span><%= g %></span>
+              </label>
+            <% }) %>
+          </div>
         </div>
 
         <div class="filter-group">
@@ -102,18 +106,54 @@
   </div>
 
   <script>
-    document.getElementById('filter-toggle').addEventListener('click', function() {
-      const searchContainer = document.getElementById('search-container');
-      if (searchContainer.style.display === 'none' || searchContainer.style.display === '') {
-        searchContainer.style.display = 'block';
-        searchContainer.style.opacity = '1';
+    const filterToggle = document.getElementById('filter-toggle');
+    const searchContainer = document.getElementById('search-container');
+    const genreInputs = document.querySelectorAll('input[name="genre"]');
+    const sortSelect = document.getElementById('sort');
+    const allGenresCheckbox = document.getElementById('all-genres');
+
+    function openFilters() {
+      searchContainer.style.display = 'block';
+      searchContainer.style.opacity = '1';
+      searchContainer.style.transform = 'translateY(0)';
+    }
+
+    function closeFilters() {
+      searchContainer.style.opacity = '0';
+      searchContainer.style.transform = 'translateY(-16px)';
+      setTimeout(() => {
+        searchContainer.style.display = 'none';
+      }, 300);
+    }
+
+    filterToggle.addEventListener('click', function () {
+      const isClosed =
+        searchContainer.style.display === 'none' ||
+        searchContainer.style.display === '';
+
+      if (isClosed) {
+        openFilters();
       } else {
-        searchContainer.style.opacity = '0';
-        setTimeout(() => {
-          searchContainer.style.display = 'none';
-        }, 300); // Час анімації
+        closeFilters();
       }
     });
+
+    const hasCheckedGenre = Array.from(genreInputs).some(input => input.checked);
+    const hasSortChanged = sortSelect && sortSelect.value !== 'asc';
+
+    if (hasCheckedGenre || hasSortChanged) {
+      openFilters();
+    }
+
+    if (allGenresCheckbox) {
+      allGenresCheckbox.addEventListener('change', function () {
+        if (this.checked) {
+          const currentSearch = new URLSearchParams(window.location.search).get('q');
+          const targetUrl = currentSearch ? `/?q=${encodeURIComponent(currentSearch)}` : '/';
+          window.location.href = targetUrl;
+        }
+      });
+    }
   </script>
 </body>
 </html>
