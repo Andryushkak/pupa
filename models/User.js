@@ -1,16 +1,18 @@
 const mongoose = require('mongoose');
 
-// Схема користувача
 const userSchema = new mongoose.Schema({
-  firstName: String, // Ім’я
-  lastName: String,  // Прізвище
-  email: { 
-    type: String, 
-    required: true, 
-    unique: true  // Кожен email має бути унікальним
+  firstName: String,
+  lastName: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true
   },
-  password: String   // Пароль (зазвичай зберігається в зашифрованому вигляді)
+  password: String,
+  photo: {
+    type: String,
+    default: ''
+  }
 });
 
-// Експортуємо модель User
 module.exports = mongoose.model('Users', userSchema);
